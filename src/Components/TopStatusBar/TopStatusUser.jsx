@@ -28,12 +28,12 @@ const TopStatusUser = ({history}) =>{
                 }).catch(error=>{
                     localStorage.setItem("authToken","");
                     localStorage.setItem("privilege","");
-                    this.props.history.push('/');
+                    this.props.history.push('/login');
                 })
             } catch (error) {
                 localStorage.setItem("authToken","");
                 localStorage.setItem("privilege","");
-                this.props.history.push('/');
+                this.props.history.push('/login');
             }
         }
 

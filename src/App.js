@@ -1,5 +1,4 @@
 import {BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
 /** Protect routes */
 import UserRoute from './Components/Routing/UserRoute';
 import AdminRoute from "./Components/Routing/AdminRoute";
@@ -27,7 +26,7 @@ const App = () => {
         <Router>
             <div className="App">
                 <Switch>
-                    <Route exact path="/login" component={UserLogin}/>
+                    <Route exact path='/login' component={UserLogin}/>
                     <UserRoute exact path="/" component={UserHome}/>
                     <Route exact path="/forgot-password" component={ForgetPassEmailType}/>
                     <Route exact path="/reset-password/:id" component={ResetPassword}/>
