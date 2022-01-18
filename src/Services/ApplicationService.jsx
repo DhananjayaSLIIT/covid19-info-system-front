@@ -1,7 +1,7 @@
 import BaseService from "./BaseService";
-const get_applications = `http://localhost:5000/api/application/get-application-by-center/`;
-const schedule_vaccine = "http://localhost:5000/api/application/schedule-vaccination";
-const applicationCount = "http://192.168.1.6:5000/api/application/get-application-count/";
+const get_applications = `https://covid19-info-system.herokuapp.com/api/application/get-application-by-center/`;
+const schedule_vaccine = "https://covid19-info-system.herokuapp.com/api/application/schedule-vaccination";
+const applicationCount = "https://covid19-info-system.herokuapp.com/api/application/get-application-count/";
 class ApplicationService{
 
     getApplicationByCenterId(id){

@@ -1,7 +1,7 @@
 import BaseService from "./BaseService";
 
-const getDetails = "http://localhost:5000/api/info/get-past-month";
-const vaccination_details = "http://localhost:5000/api/application/get-vaccination-details";
+const getDetails = "https://covid19-info-system.herokuapp.com/api/info/get-past-month";
+const vaccination_details = "https://covid19-info-system.herokuapp.com/api/application/get-vaccination-details";
 
 class HomeServices{
 

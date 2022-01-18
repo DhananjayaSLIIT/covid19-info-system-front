@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const get_all_centers = `http://localhost:5000/api/center/get-all-centers`;
-const get_centers_by_division = `http://localhost:5000/api/center/get-center-by-division/`
-const add_new_center = `http://localhost:5000/api/center/add-center`;
-const delete_center = `http://localhost:5000/api/center/delete-center/`;
-const update_center = `http://localhost:5000/api/center/update-center/`;
+const get_all_centers = `https://covid19-info-system.herokuapp.com/api/center/get-all-centers`;
+const get_centers_by_division = `https://covid19-info-system.herokuapp.com/api/center/get-center-by-division/`
+const add_new_center = `https://covid19-info-system.herokuapp.com/api/center/add-center`;
+const delete_center = `https://covid19-info-system.herokuapp.com/api/center/delete-center/`;
+const update_center = `https://covid19-info-system.herokuapp.com/api/center/update-center/`;
 
 class CenterService {
     getAllCenters(){

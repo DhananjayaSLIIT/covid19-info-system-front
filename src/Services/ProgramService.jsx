@@ -1,14 +1,14 @@
 import axios from 'axios';
 import BaseService from "./BaseService";
-const get_allPrograms = `http://localhost:5000/api/program/get-all-program`;
-const addNewProgram = `http://localhost:5000/api/program/add-program`;
-const prg_number = `http://localhost:5000/api/program/programNumber`;
-const getProgram = 'http://localhost:5000/api/program/get-program/';
-const update_prg = `http://localhost:5000/api/program/update-program/`;
-const get_program_by_center = `http://localhost:5000/api/program/get-program-by-center/`;
-const delete_Program = `http://localhost:5000/api/program/delete-program/`;
-const get_scheduled_applications = "http://localhost:5000/api/application/get-schedule-vaccination/";
-const save_changes = "http://localhost:5000/api/application/saveStatus";
+const get_allPrograms = `https://covid19-info-system.herokuapp.com/api/program/get-all-program`;
+const addNewProgram = `https://covid19-info-system.herokuapp.com/api/program/add-program`;
+const prg_number = `https://covid19-info-system.herokuapp.com/api/program/programNumber`;
+const getProgram = 'https://covid19-info-system.herokuapp.com/api/program/get-program/';
+const update_prg = `https://covid19-info-system.herokuapp.com/api/program/update-program/`;
+const get_program_by_center = `https://covid19-info-system.herokuapp.com/api/program/get-program-by-center/`;
+const delete_Program = `https://covid19-info-system.herokuapp.com/api/program/delete-program/`;
+const get_scheduled_applications = "https://covid19-info-system.herokuapp.com/api/application/get-schedule-vaccination/";
+const save_changes = "https://covid19-info-system.herokuapp.com/api/application/saveStatus";
 
 class ProgramService {
     getCenterPrograms(id){

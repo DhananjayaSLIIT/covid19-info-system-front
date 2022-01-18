@@ -1,8 +1,8 @@
 import axios from 'axios';
 import BaseService from "./BaseService";
 
-const send_forgot_password_email = "http://localhost:5000/api/user/forgot-password"
-const reset_password = 'http://localhost:5000/api/user/reset-password-data/';
+const send_forgot_password_email = "https://covid19-info-system.herokuapp.com/api/user/forgot-password"
+const reset_password = 'https://covid19-info-system.herokuapp.com/api/user/reset-password-data/';
 class UserServices {
     sendForgotPasswordEmail(data){
         return BaseService.UnSecure_post(send_forgot_password_email,data)
