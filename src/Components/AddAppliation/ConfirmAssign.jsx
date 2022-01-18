@@ -18,9 +18,9 @@ export default class ConfirmAssign extends Component {
         this.text1 = React.createRef();
         this.text2 = React.createRef();
         this.text3 = React.createRef();
-        ///this.onTextFiledType = this.onTextFiledType.bind(this);
-        //this.assignOnClick = this.assignOnClick.bind(this);
-        //this.closeHandler = this.closeHandler.bind(this);
+        this.onTextFiledType = this.onTextFiledType.bind(this);
+        this.assignOnClick = this.assignOnClick.bind(this);
+        this.closeHandler = this.closeHandler.bind(this);
         this.addCheckedItems = this.addCheckedItems.bind(this);
         this.timeOnChangePromise = this.timeOnChangePromise.bind(this);
         this.onTextFiledTypePromise = this.onTextFiledTypePromise.bind(this);
@@ -118,6 +118,7 @@ export default class ConfirmAssign extends Component {
 
     /** ASSIGN button on click method */
     assignOnClick(){
+        console.log(this.props.checkedItems);
         this.setState({checkedItems:this.props.checkedItems});
         if(this.props.checkedItems.length > 0){
             if(this.state.hour === "" || this.state.minute === "" || this.state.time === ""){
