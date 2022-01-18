@@ -21,31 +21,31 @@ const NavDrawer = props => {
                 <img src={`/images/logoCovid.jpg`} style={{width:"100px",height:"100px"}}/>
             </div>
             <br/>
-            <a className="list-item" href="https://mystifying-leavitt-4de6a7.netlify.app/">
+            <a className="list-item" href="/">
                 <div style={{backgroundColor:"inherit",paddingRight:"20px"}}>
                     <GoHome style={{backgroundColor:"inherit",fontSize:"x-large"}}/>
                 </div>
                 HOME
             </a>
-            <a className="list-item" href="https://mystifying-leavitt-4de6a7.netlify.app/district">
+            <a className="list-item" href="/district">
                 <div style={{backgroundColor:"inherit",paddingRight:"20px"}}>
                     <BiMapPin style={{backgroundColor:"inherit",fontSize:"x-large"}}/>
                 </div>
                 DISTRICT
             </a>
-            <a className="list-item" href="https://mystifying-leavitt-4de6a7.netlify.app/division">
+            <a className="list-item" href="/division">
                 <div style={{backgroundColor:"inherit",paddingRight:"20px"}}>
                     <BiSitemap style={{backgroundColor:"inherit",fontSize:"x-large"}}/>
                 </div>
                 DIVISION
             </a>
-            <a className="list-item" href="https://mystifying-leavitt-4de6a7.netlify.app/center">
+            <a className="list-item" href="/center">
                 <div style={{backgroundColor:"inherit",paddingRight:"20px"}}>
                     <GiLoveInjection style={{backgroundColor:"inherit",fontSize:"x-large"}}/>
                 </div>
                 CENTER
             </a>
-            <a className="list-item" href="https://mystifying-leavitt-4de6a7.netlify.app/get-all-user">
+            <a className="list-item" href="/get-all-user">
                 <div style={{backgroundColor:"inherit",paddingRight:"20px"}}>
                     <FaUsersCog style={{backgroundColor:"inherit",fontSize:"x-large"}}/>
                 </div>
