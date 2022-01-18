@@ -18,9 +18,9 @@ export default class ConfirmAssign extends Component {
         this.text1 = React.createRef();
         this.text2 = React.createRef();
         this.text3 = React.createRef();
-        this.onTextFiledType = this.onTextFiledType.bind(this);
-        this.assignOnClick = this.assignOnClick.bind(this);
-        this.closeHandler = this.closeHandler.bind(this);
+        ///this.onTextFiledType = this.onTextFiledType.bind(this);
+        //this.assignOnClick = this.assignOnClick.bind(this);
+        //this.closeHandler = this.closeHandler.bind(this);
         this.addCheckedItems = this.addCheckedItems.bind(this);
         this.timeOnChangePromise = this.timeOnChangePromise.bind(this);
         this.onTextFiledTypePromise = this.onTextFiledTypePromise.bind(this);
@@ -133,6 +133,8 @@ export default class ConfirmAssign extends Component {
                         /** Service response handle */
                         alert(response.data.message);
                         this.closeHandler();
+                    }).catch(error =>{
+                        alert(error.response.data.data);
                     })
                     window.location.reload(false);
                 })

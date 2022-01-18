@@ -256,7 +256,7 @@ export default class ChangeState extends Component {
                             </div>
                         </div>
                         <div className="pro-middle-container" id="bottom-con">
-                            <label style={{fontSize:"small",fontWeight:"medium"}}>Search Application by Name </label>
+                            <label style={{fontSize:"small",fontWeight:"medium"}}>Search Application by NIC </label>
                             <input type="text" className="form-control" id="pro-search" name="keyWord"
                                    onChange={event => this.onSearchHandler(event)}/>
                             <br/>
