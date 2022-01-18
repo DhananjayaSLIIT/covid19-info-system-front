@@ -111,6 +111,7 @@ const UpdateProgram = ({ handleClose, showUpdate, programItem }) =>{
                 }
                 restField();
                 handleClose();
+                window.location.reload(false);
             }).catch(error =>{
                 alert(`Server error !\n${error.message}`);
             })

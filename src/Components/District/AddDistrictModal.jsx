@@ -33,6 +33,7 @@ const AddDistrictModal = ({ handleClose, show}) => {
                 setDistrictCode("");
                 setDistrictName("");
                 handleClose();
+                window.location.reload(false);
             }).catch(error => {
                 alert(error.message);
             })

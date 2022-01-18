@@ -26,6 +26,7 @@ const DeleteDivision = ({ handleClose, showDelete , divisionID }) =>{
                 alert(response.data.message);
                 setDivisionNumber("");
                 handleClose();
+                window.location.reload(false);
             }).catch(error => {
                 alert(error.message);
             })

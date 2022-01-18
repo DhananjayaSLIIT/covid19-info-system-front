@@ -41,7 +41,7 @@ const AddProgram = ({ handleClose, showAdd, centerID}) => {
         },
         {
             value:"5",
-            label:"Sinopharm"
+            label:"AstraZeneca"
         },
     ]
 
@@ -100,6 +100,7 @@ const AddProgram = ({ handleClose, showAdd, centerID}) => {
                 }
                 restField();
                 handleClose();
+                window.location.reload(false);
             }).catch(error =>{
                 alert(`Server error !\n${error.message}`);
             })

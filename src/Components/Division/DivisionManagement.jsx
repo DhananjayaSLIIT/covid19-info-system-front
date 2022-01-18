@@ -129,7 +129,6 @@ export default class DivisionManagement extends Component {
                             <input type="text" className="form-control" id="divi-search" name="keyWord"
                                    onChange={this.onSearchHandler}/>
                             <br/>
-                            <button className="divi-btn-add" style={{width:"100px"}}>SEARCH</button>
 
                             <button className="divi-btn-sep" style={{marginTop:"-40px",marginRight:"120px"}} disabled={this.state.selectedID === ""} onClick={this.showModalUpdate}>
                                 <RiRecycleFill style={{backgroundColor:"inherit",color:"green"}}/>

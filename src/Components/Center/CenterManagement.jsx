@@ -138,7 +138,6 @@ export default  class CenterManagement extends Component {
                                    onChange={event => this.onSearchHandler(event)}
                                    />
                             <br/>
-                            <button className="cen-btn-add" style={{width:"100px"}}>SEARCH</button>
 
                             <button className="cen-btn-sep"
                                     style={{marginTop:"-40px",marginRight:"120px"}}

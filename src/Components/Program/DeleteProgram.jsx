@@ -10,6 +10,7 @@ const DeleteProgram = ({ handleClose, showDelete, programItem }) => {
             if(response.data.success){
                 alert("Program removed successfully !");
                 handleClose();
+                window.location.reload(false);
             }
         }).catch(error =>{
             alert("Server error !\n"+error.message);

@@ -62,6 +62,7 @@ const AddDivision = ({ handleClose, showAdd }) =>{
             Service.addDivision(newDivision,config).then(response => {
                 alert(response.data.message);
                 handleClose();
+                window.location.reload(false);
             }).catch(error =>{
                 alert(error.message);
                 console.log(error)

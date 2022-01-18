@@ -133,8 +133,6 @@ export default class GetAllPrograms extends Component {
                             <input type="text" className="form-control" id="pro-search" name="keyWord"
                                    onChange={event => this.onSearchHandler(event)}/>
                             <br/>
-                            <button className="pro-btn-add" style={{width:"100px"}}>SEARCH</button>
-
                             <button className="pro-btn-sep" style={{marginTop:"-40px",marginRight:"120px"}} disabled={this.state.selectedID === ""} onClick={this.openModalUpdate}>
                                 <RiRecycleFill style={{backgroundColor:"inherit",color:"green"}}/>
                             </button>

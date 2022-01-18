@@ -71,6 +71,7 @@ const UpdateDivision = ({ handleClose, showUpdate, divisionID }) => {
                 alert(response.data.message);
                 window.location.reload(false);
                 handleClose();
+                window.location.reload(false);
             }).catch(error => {
                 alert(error.message);
             })
