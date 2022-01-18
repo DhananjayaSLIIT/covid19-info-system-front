@@ -1,0 +1,122 @@
+.a-content{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#user-middle-container{
+	padding-top: 20px;
+	height: 100%;
+	min-width: 490px;
+}
+.user-conatent{
+	border: 1px solid lightgray;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+.user-top-container{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 10px;
+	border: 1px solid lightgray;
+	background-color: #FAD0EE;
+	height: 90px;
+}
+#user-add-btn{
+	float: right;
+	height: 40px;
+}
+.user-add-btn-div{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: inherit;
+}
+.user-middle-container{
+	padding: 10px;
+}
+#user-search{
+	max-width: 500px;
+}
+#user-search:focus{
+	-webkit-transition: all 0.2s ease-in-out;
+}
+.user-bottom-container{
+	overflow: auto;
+	padding: 0;
+	height: 40vh;
+}
+.user-table{
+	width: 100%;
+}
+.user-table-head{
+	background-color: 	#FAD0EE;
+	padding-left: 10px;
+	font-size: small;
+}
+#tbl-head-cell{
+	padding-bottom: 20px;
+	border: none;
+	height: 60px;
+}
+.tbl-body-cell-padding-top{
+	padding-top: 200px;
+}
+.user-btn-add{
+	padding: 0 10px 0 10px;
+	border: 0;
+	background-color: #0D4588;
+	height: 40px;
+	color: white;
+	font-size: small;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 5px;
+}
+.user-btn-add:hover{
+	-webkit-transition: all 0.3s ease-out;
+	-webkit-transform: scale(1.05);
+}
+.user-icons{
+	background-color: #0D4588;
+	border: 0px;
+	font-size: larger;
+	font-weight: bolder;
+	color: white;
+
+}
+.tbl-body-row{
+	height: 50px;
+}
+.tbl-body-row:hover{
+	cursor: pointer;
+	height: 50px;
+	background: #94a7ff;
+	-webkit-transition: all 0.3s ease;
+}
+#tbl-body-row-focus{
+	background-color: #94a7ff;
+}
+.a-content:hover{
+	color: white;
+}
+.user-btn-sep{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 5px 20px 5px 20px;
+	width: 100px;
+	height: 40px;
+	float: right;
+	border: none;
+	background-color: #e6e6ff;
+	font-size: x-large;
+	border-radius: 5px;
+}
+.user-btn-sep:hover{
+	border: 2px solid #0D4588;
+	-webkit-transition: all 0.3s ease-out;
+	-webkit-transform: scale(1.05);
+}

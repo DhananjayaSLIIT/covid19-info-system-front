@@ -1,0 +1,66 @@
+.pro-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+.pro-modal-main{
+    position:fixed;
+    background: white;
+    overflow: auto;
+    width: 600px;
+    height: auto;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    padding: 20px;
+    border-radius: 10px;
+}
+.pro-inner-content{
+    border: 1px solid lightgray;
+    padding: 10px;
+}
+.pro-display-block{
+    display: block;
+}
+.pro-display-none{
+    display: none;
+}
+.pro-input-field{
+    font-size: small;
+}
+.pro-input-field:focus{
+    font-weight: bold;
+}
+.pro-button-container{
+    padding-top: 30px;
+}
+.pro-warn-field{
+    color: red;
+    font-weight: bold;
+    height: 20px;
+    padding-top: 10px;
+}
+.pro-btn-close{
+    border: none;
+    background-color: gray;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    height: 40px;
+    width: 150px;
+}
+.pro-btn-close:hover{
+    -webkit-transition: all 0.3s ease-out;
+    -webkit-transform: scale(1.05);
+}
+.pro-warn-words{
+    background-color: inherit;
+
+}
+#delete-warning{
+    font-size: x-large;
+    color: #ff2c2c;
+}

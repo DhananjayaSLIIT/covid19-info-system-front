@@ -1,0 +1,129 @@
+.red_border{
+    border: 1px solid red;
+}
+#_background_color_id{
+    background-color: #0D4588;
+}
+.top_status_outer_container{
+    background-color: #0D4588;
+}
+.gov-logo{
+    background-color: #0D4588;
+    height: 70px;
+    width: 50px;
+}
+.logo-text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    color: white;
+    font-family: bold;
+    font-size: large;
+    font-family: Calibri;
+    background-color: #0D4588;
+}
+.logo_and_dept{
+    padding: 10px;
+    background-color: #0D4588;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.main_blocks{
+    background-color: #0D4588;
+}
+.block_item{
+    background-color: #0D4588;
+}
+.heading-text{
+    font-size: 38px;
+    text-align: center;
+    color: white;
+    font-family: Calibri;
+    background-color: inherit;
+    margin: auto;
+}
+#logo_text_id{
+    padding-left: 10px;
+}
+._btn_sign_out{
+    border: white 2px solid;
+    color: white;
+    width: 90px;
+}
+._btn_sign_out:hover{
+    color: white;
+    background-color: #0080ff;
+    -webkit-transition: all 0.3s ease-out;
+    -webkit-transform: scale(1.05);
+}
+@media only screen and (min-width: 481px) and (max-width: 768px){
+    .main_blocks{
+        display: grid;
+        grid-template-columns: 100%;
+    }
+    .block_item{
+        width: 100%;
+        padding: 0;
+    }
+    .heading-container{
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .logo_and_dept{
+        width: 270px;
+    }
+    #_space_between_id{
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .heading-text{
+        padding-bottom: 20px;
+    }
+    ._sign_out_btn_container{
+        border-top: white 2px solid;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+@media only screen and (min-width: 769px){
+    .main-blocks{
+        background-color: #0D4588;
+        display: grid;
+        grid-template-columns: 30% 70%;
+    }
+    .block_item{
+        background-color: #0D4588;
+        width: 100%;
+        padding: 0;
+        margin: auto;
+    }
+    .heading-container{
+        padding: 10px;
+    }
+    .logo_and_dept{
+        width: 270px;
+    }
+    #_space_between_id{
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    #_align_to_start{
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+    }
+    ._sign_out_btn_container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

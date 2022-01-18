@@ -1,0 +1,108 @@
+#border{
+    border: 1px solid red;
+}
+.grid-container{
+    padding: 40px;
+}
+.grid-item{
+    height: 100%;
+    width: 90%;
+    padding: 20px;
+}
+#graph-items{
+    -webkit-transition: all 0.5s ease-in-out;
+}
+#graph-items:hover{
+    -webkit-transform: scale(1.05);
+}
+
+.grid-middle-content-tp{
+    border: 3px solid #0080ff;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.item-header-content{
+    border-radius: 10px;
+    background-color: inherit;
+}
+.top-content{
+    height: 300px;
+    border: 3px solid white;
+    border-radius: 10px;
+    padding: 10px;
+}
+.list-content{
+    padding-bottom: 20px;
+    padding-top: 20px;
+    font-size: large;
+    font-weight: bold;
+}
+
+.grid-middle-content{
+    height: 100%;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 10px;
+    -moz-box-shadow: 0 0 5px lightgray;
+    -webkit-box-shadow: 0 0 5px lightgray;
+    box-shadow: 0 0 5px lightgray;
+}
+.middle{
+    display: grid;
+    grid-template-rows: 50% 50%;
+}
+.middle-item{
+    height: 50px;
+    border: 1px solid lightgray;
+}
+
+.fallback-home{
+
+}
+.fallback-icon{
+
+}
+@media only screen and (min-width: 1px) and (max-width: 786px){
+    .grid-container{
+        display: grid;
+        grid-template-columns: 100%;
+    }
+    .grid-item{
+        width: 100%;
+    }
+}
+@media only screen and (min-width: 787px) and (max-width: 1280px){
+    .grid-container{
+        padding-right: 40px;
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
+    .grid-item{
+        width: 100%;
+    }
+}
+@media only screen and (min-width: 1281px){
+    .grid-container{
+        display: grid;
+        grid-template-columns: 33% 33% 33%;
+    }
+    .grid-item{
+        width: 100%;
+    }
+}
+
+._fadeIn_animation {
+    animation-name: moveUp;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+}
+
+@keyframes moveUp {
+    from {
+        margin-top: 400px;
+    }
+    to {
+        margin-top: 0px;
+    }
+}

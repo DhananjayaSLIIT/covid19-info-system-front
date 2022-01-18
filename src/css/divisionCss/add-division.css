@@ -1,0 +1,51 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+.modal-main {
+    position:fixed;
+    background: white;
+    width: 600px;
+    height: auto;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    padding: 20px;
+    border-radius: 10px;
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 1.4s;
+    animation-name: animatetop;
+    animation-duration: 1.4s
+
+}
+.inner-modal-main{
+    border: 1px solid lightgray;
+    padding: 20px;
+    border-radius: 10px;
+    height: 100%;
+}
+.display-block {
+    display: block;
+}
+
+.display-none {
+    display: none;
+}
+#delete-warning{
+    color: black;
+    font-size: medium;
+}
+.divi-warn-words{
+    background: inherit;
+    font-weight: bold;
+    color: #ff2c2c;
+}
+.btn-close-m{
+    border-radius: 5px;
+    -webkit-transition: all 0.3s ease-out;
+    -webkit-transform: scale(1.05);
+}

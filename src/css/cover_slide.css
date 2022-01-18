@@ -1,0 +1,160 @@
+.slide_border_grey{
+    border: 10px solid red;
+}
+
+.coverslide-container{
+    max-width: 100%;
+    margin: auto;
+    background: #222;
+    background-size: cover;
+    overflow: hidden;
+    height: 200px;
+}
+.cover-slides img{
+    max-width: 100%;
+    height: 200px;
+}
+.cover-slides .cover-image{
+    display: block;
+    width: 100%;
+    height: 200px;
+    position: relative;
+    z-index: 20;
+    margin-top: 0px;
+    margin-left: 0px;
+    animation-duration: 2s;
+    animation-fill-mode: both;
+    animation-name: fadeInAnimation;
+}
+.cover-slides h2{
+    color: white;
+    font-size: 160px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 33px;
+    line-height: 1;
+    position: absolute;
+    top: 80px;
+    left: 100px;
+    z-index: 10;
+    animation-duration: 3.2s;
+    animation-fill-mode: both;
+    animation-name: fadeInLeft;
+}
+
+.cover-slides{
+}
+
+.cover-slides .cover-details{
+    width: 350px;
+    position: absolute;
+    top: 220px;
+    right: 100px;
+    z-index: 30;
+}
+
+
+.cover-slides .cover-details p{
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    text-align: center;
+    animation-duration: 2s;
+    animation-fill-mode: both;
+    animation-name: slideInRight;
+}
+
+.cover-slides .cover-details h4{
+    margin-top: 20%;
+    color: white;
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    animation-duration: 1.2s;
+    text-align: center;
+    animation-fill-mode: both;
+    animation-name: fadeInLeft;
+}
+
+
+.cover-slides .cover-details .btn{
+    background-color:yellow;
+    margin-left: 28%;
+    animation-duration: 2s;
+    animation-fill-mode: both;
+    animation-name: fadeInUp;
+}
+
+.cover-slides .cover-details .btn:hover{
+    background-color: orangered;
+}
+
+.cover-slides .cover-details .btn a{
+    color:black;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    animation-duration: 2s;
+    animation-fill-mode: both;
+    animation-name: fadeInUp;
+}
+
+.cover-slides .cover-details .btn a:hover{
+    color:white;
+}
+
+.fadeInLeft{
+    animation-name: fadeInLeft;
+}
+
+.fadeInUp{
+    animation-name: fadeInUp;
+}
+
+.slideInRight{
+    animation-name: slideInRight;
+}
+
+@keyframes fadeInUp{
+    from{
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+    to{
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes slideInRight{
+    from{
+        transform: translate3d(100%, 0, 0);
+        visibility: visible;
+    }
+    to{
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes fadeInLeft{
+    from{
+        opacity: 0;
+        transform: translate3d(-100%, 0, 0);
+    }
+    to{
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes fadeInAnimation{
+    0% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
+    }
+}

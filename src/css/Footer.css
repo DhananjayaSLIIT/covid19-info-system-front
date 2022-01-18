@@ -1,0 +1,14 @@
+.test_border{
+    border: 1px solid red;
+}
+.footer{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+@media only screen and (min-width: 481px) and (max-width: 768px){
+
+}
+@media only screen and (min-width: 769px){
+
+}
