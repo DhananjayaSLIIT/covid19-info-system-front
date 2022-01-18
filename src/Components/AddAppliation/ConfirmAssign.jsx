@@ -27,7 +27,6 @@ export default class ConfirmAssign extends Component {
         this.inputFiledSkip = this.inputFiledSkip.bind(this);
     }
 
-
     /** Time on change Promise */
     timeOnChangePromise(event){
         return new Promise(resolve =>
@@ -134,10 +133,11 @@ export default class ConfirmAssign extends Component {
                         /** Service response handle */
                         alert(response.data.message);
                         this.closeHandler();
+                    }).then(()=>{
+                        window.location.reload(false);
                     }).catch(error =>{
                         alert(error.response.data.data);
                     })
-                    window.location.reload(false);
                 })
             }
         }else{

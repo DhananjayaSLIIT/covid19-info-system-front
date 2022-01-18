@@ -49,6 +49,7 @@ export default class ApplicationTable extends Component {
     let count = this.state.isChecked.length;
     let checkedItems = this.state.isChecked;
     this.props.applicationCount(count, checkedItems);
+    console.log(this.state.isChecked);
   }
 
   showModel(item) {
