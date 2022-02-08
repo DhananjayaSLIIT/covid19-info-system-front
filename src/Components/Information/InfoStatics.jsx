@@ -42,7 +42,7 @@ export default class InfoStatics extends Component {
                 let tempDSet = [];
                 let tempVSet = [];
                 this.state.allInfo.map((item, index) =>{
-                    let day = item.infoDate.slice(0,10);
+                    let day = item._id.onlyDate;
                     let deaths = item.deathCases;
                     let vaccinated = item.vaccinatedCount;
                     tempLabels.push(day);

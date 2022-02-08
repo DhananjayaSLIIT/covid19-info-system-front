@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
 import '../../css/application_css/application_details.css';
 import ApplicationService from "../../Services/ApplicationService";
+import MessageModal from "../Message/MessageModal";
 
 
 export default class ConfirmAssign extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            show:false,
+            message:'',
+            statusCode:'',
             hour:"",
             minute:"",
             time:"AM",
@@ -18,6 +22,9 @@ export default class ConfirmAssign extends Component {
         this.text1 = React.createRef();
         this.text2 = React.createRef();
         this.text3 = React.createRef();
+        this.openMessageModal = this.openMessageModal.bind(this);
+        this.closeMessageModal = this.closeMessageModal.bind(this);
+        this.resetMessage = this.resetMessage.bind(this);
         this.onTextFiledType = this.onTextFiledType.bind(this);
         this.assignOnClick = this.assignOnClick.bind(this);
         this.closeHandler = this.closeHandler.bind(this);
@@ -25,6 +32,28 @@ export default class ConfirmAssign extends Component {
         this.timeOnChangePromise = this.timeOnChangePromise.bind(this);
         this.onTextFiledTypePromise = this.onTextFiledTypePromise.bind(this);
         this.inputFiledSkip = this.inputFiledSkip.bind(this);
+        this.setStatePromise = this.setStatePromise.bind(this);
+    }
+    setStatePromise(message){
+        return new Promise(resolve => {
+            resolve(
+                this.setState({message:message})
+            )
+        });
+    }
+
+    /**Message modal popup*/
+    openMessageModal(){
+        this.setState({show:true});
+    }
+    /**Message modal close*/
+    closeMessageModal(){
+        this.setState({show:false});
+        this.closeHandler();
+    }
+    /**Reset message */
+    resetMessage(){
+        this.setState({message:''});
     }
 
     /** Time on change Promise */
@@ -123,20 +152,36 @@ export default class ConfirmAssign extends Component {
             if(this.state.hour === "" || this.state.minute === "" || this.state.time === ""){
                 this.setState({errorField:"Please enter appointed time !"})
             }else if(this.props.applicationCount > this.props.maxCount){
-                this.setState({errorField:"Maximum mount  !"})
+                this.setState({errorField:"Maximum count exceeded !"})
             } else{
                 this.addCheckedItems().then(()=>{
                     let data = {
                         data:this.state.assignedItems
                     }
-                    ApplicationService.scheduleVaccination(data).then(response =>{
-                        /** Service response handle */
-                        alert(response.data.message);
-                        this.closeHandler();
-                    }).then(()=>{
-                        window.location.reload(false);
+                    ApplicationService.scheduleVaccination(data).then(response=>{
+                        if(response.data.success === true){
+                            this.setStatePromise(response.data.message).then(()=>{
+                                this.setState({statusCode:response.status})
+                            }).then(()=>{
+                                this.openMessageModal();
+                            })
+                        }else{
+                            this.setStatePromise(response.data.message).then(()=>{
+                                this.setState({statusCode:response.status})
+                            }).then(()=>{
+                                this.openMessageModal();
+                            });
+                        }
+
+                        //this.setState({message:response.data.message})
                     }).catch(error =>{
-                        alert(error.response.data.data);
+                        this.setStatePromise(error.message).then(()=>{
+                            this.setState({statusCode:error.response.status})
+                        }).then(()=>{
+                            this.openMessageModal();
+                        })
+                        //this.openMessageModal(error.response.data.data);
+                        //this.setState({message:error.response.data.data});
                     })
                 })
             }
@@ -152,6 +197,7 @@ export default class ConfirmAssign extends Component {
         this.setState({minute: ""});
         this.setState({time: "AM"});
         this.props.handleClose();
+        window.location.reload(false);
     }
 
     render() {
@@ -204,6 +250,13 @@ export default class ConfirmAssign extends Component {
                             <button type="button" className="btn-add btn-Style" onClick={this.assignOnClick}>
                                 ASSIGN
                             </button>
+                            <MessageModal
+                                show={this.state.show}
+                                message={this.state.message}
+                                closeHandler={this.closeMessageModal}
+                                messageReset={this.resetMessage}
+                                responseCode={this.state.statusCode}
+                            />
                         </div>
                     </div>
                 </section>

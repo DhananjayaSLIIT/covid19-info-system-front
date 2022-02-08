@@ -2,9 +2,14 @@ import React, {useEffect, useState} from "react";
 import '../../css/program_css/program_modal.css';
 import Select from "react-select";
 import ProgramService from "../../Services/ProgramService";
+import MessageModal from "../Message/MessageModal";
 
 const AddProgram = ({ handleClose, showAdd, centerID}) => {
     const Classname = showAdd ? "pro-modal pro-display-block":"pro-modal pro-display-none";
+
+    const [show, setShow] = useState(false);
+    const [message, setMessage] = useState('');
+    const [statusCode, setStatusCode] = useState(0);
 
     const [programNumber, setProgramNumber] = useState('');
     const [vaccineName, setVaccineName] = useState('');
@@ -51,6 +56,33 @@ const AddProgram = ({ handleClose, showAdd, centerID}) => {
         }
     }
 
+    /** Alert modal */
+    const setStatePromise = (message) => {
+        return new Promise(resolve => {
+            resolve(
+                setMessage(message)
+            )
+        });
+    }
+    /**Message modal popup*/
+    const openMessageModal = () => {
+        setShow(true);
+    }
+    /**Message modal close*/
+    const closeMessageModal = () => {
+        setShow(false);
+        resetMessage();
+        restField();
+        handleClose();
+        window.location.reload(false);
+    }
+    /**Reset message */
+    const resetMessage = () => {
+        setMessage('');
+        setStatusCode(0);
+    }
+    /**-------------*/
+
     const onSelectHandler = selected =>{
         setVaccineName(selected.label);
         setFieldError("");
@@ -94,15 +126,32 @@ const AddProgram = ({ handleClose, showAdd, centerID}) => {
                 maximumCount:maximumCount
             }
 
-            ProgramService.addNewProgram(newProgram,config).then(response =>{
-                if(response.data.success){
-                    alert("New program added !");
+            ProgramService.addNewProgram(newProgram,config).then(result =>{
+                if(result.data.success){
+                    alert(result.data.message);
+                    setStatePromise(result.data.message).then(()=>{
+                        setStatusCode(result.status);
+                    }).then(()=>{
+                        openMessageModal();
+                    })
+
+                }else{
+                    setStatePromise(result.data.error.message).then(()=>{
+                        setStatusCode(result.data.error.status)
+                    }).then(()=>{
+                        openMessageModal();
+                    })
                 }
-                restField();
-                handleClose();
-                window.location.reload(false);
             }).catch(error =>{
-                alert(`Server error !\n${error.message}`);
+                setStatePromise(error.message).then(()=>{
+                    if(!error.response){
+                        setStatusCode(500);
+                    }else{
+                        setStatusCode(error.response.status);
+                    }
+                }).then(()=>{
+                    openMessageModal();
+                })
             })
         }
     }
@@ -183,6 +232,13 @@ const AddProgram = ({ handleClose, showAdd, centerID}) => {
                         <button type="button" className="btn-add btn-Style" onClick={submitHandler} tabIndex={6}>
                             Add Program
                         </button>
+                        <MessageModal
+                            show={show}
+                            message={message}
+                            closeHandler={closeMessageModal}
+                            messageReset={resetMessage}
+                            responseCode={statusCode}
+                        />
                     </div>
                 </div>
             </section>

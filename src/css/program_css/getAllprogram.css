@@ -1,3 +1,6 @@
+._table_display_none{
+    display: none;
+}
 .a-content{
     display: flex;
     align-items: center;

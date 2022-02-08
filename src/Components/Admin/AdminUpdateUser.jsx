@@ -2,11 +2,15 @@ import React, {Component} from 'react';
 import '../../css/admin_add_users.css';
 import Service from "../../Services/Service";
 import TopStatusUser from "../TopStatusBar/TopStatusUser";
+import MessageModal from "../Message/MessageModal";
 
 export default class AdminUpdateUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            show:false,
+            message:'',
+            statusCode:'',
             firstName:'',
             lastName:'',
             NIC:'',
@@ -17,6 +21,11 @@ export default class AdminUpdateUser extends Component {
         }
         this.onchangeHandler = this.onchangeHandler.bind(this);
         this.onSubmitHandler = this.onSubmitHandler.bind(this);
+
+        this.openMessageModal = this.openMessageModal.bind(this);
+        this.closeMessageModal = this.closeMessageModal.bind(this);
+        this.setStatePromise = this.setStatePromise.bind(this);
+        this.resetMessage = this.resetMessage.bind(this);
     }
 
     componentDidMount() {
@@ -32,6 +41,31 @@ export default class AdminUpdateUser extends Component {
             })
         })
     }
+
+    /** Alert modal */
+    setStatePromise(message){
+        return new Promise(resolve => {
+            resolve(
+                this.setState({message:message})
+            )
+        });
+    }
+    /**Message modal popup*/
+    openMessageModal(){
+        this.setState({show:true});
+    }
+    /**Message modal close*/
+    closeMessageModal(){
+        this.setState({show:false});
+        this.resetMessage();
+        this.props.history.push(`/get-all-user`);
+    }
+    /**Reset message */
+    resetMessage(){
+        this.setState({message:''});
+        this.setState({statusCode:''});
+    }
+    /**-------------*/
 
     onchangeHandler(event){
         this.setState({[event.target.name]:event.target.value});
@@ -67,12 +101,25 @@ export default class AdminUpdateUser extends Component {
                 }else {
                     Service.updateUser(this.props.match.params.id,newUser).then(result=>{
                         if(result.data.success){
-                            alert(result.data.message);
-                            this.props.history.push(`/get-all-user`);
+                            this.setStatePromise(result.data.message).then(()=>{
+                                this.setState({statusCode:response.status})
+                            }).then(()=>{
+                                this.openMessageModal();
+                            })
                         }else{
+                            this.setStatePromise(result.data.error.message).then(()=>{
+                                this.setState({statusCode:result.data.error.status})
+                            }).then(()=>{
+                                this.openMessageModal();
+                            })
                             alert(result.data.error.message);
                         }
                     }).catch(error=>{
+                        this.setStatePromise(error.message).then(()=>{
+                            this.setState({statusCode:error.response.status})
+                        }).then(()=>{
+                            this.openMessageModal();
+                        })
                         console.error(new Error(error));
                     })
                 }
@@ -128,6 +175,13 @@ export default class AdminUpdateUser extends Component {
                                 <input type="submit" value="Update user" className="btn btn-add" aria-describedby="emailHelp"
                                        onClick={this.onSubmitHandler}/>
                             </div>
+                            <MessageModal
+                                show={this.state.show}
+                                message={this.state.message}
+                                closeHandler={this.closeMessageModal}
+                                messageReset={this.resetMessage}
+                                responseCode={this.state.statusCode}
+                            />
                         </div>
                         <div className="add-user-grid-item">
                             <img src="/images/add-user.png" id="left-container-img"/>

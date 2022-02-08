@@ -52,6 +52,7 @@ export default  class CenterManagement extends Component {
         this.setState({showUpdate:true});
     };
     closeModalUpdate = () =>{
+
         this.setState({showUpdate:false});
     };
 

@@ -11,7 +11,6 @@ const AdminDeleteUserModal = ({ handleClose, showDelete, userID, userName}) =>{
             }
         }
         Service.removeUser(userID,config).then(response => {
-            alert(response.data.message);
             handleClose();
         }).catch(error =>{
             alert(`Server error\n${error.message}`);

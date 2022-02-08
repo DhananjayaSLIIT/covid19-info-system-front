@@ -3,10 +3,14 @@ import '../../css/center_css/add_center_modal.css';
 import Select from 'react-select';
 import Service from "../../Services/Service";
 import CenterService from "../../Services/CenterService";
+import MessageModal from "../Message/MessageModal";
 
 
 const AddCenterModal = ({ handleClose, showAdd }) =>{
     const Classname = showAdd ? "cen-modal cen-display-block":"cen-modal cen-display-none";
+    const [show, setShow] = useState(false);
+    const [message, setMessage] = useState('');
+    const [statusCode, setStatusCode] = useState(0);
 
     const [divisions, setDivisions] = useState([]);
     const [centerCode, setCenterCode] = useState("");
@@ -15,6 +19,33 @@ const AddCenterModal = ({ handleClose, showAdd }) =>{
     const [centerInCharge, setCenterInCharge] = useState("");
     const [division, setDivision] = useState("");
     const [fieldError, setFieldError] = useState("");
+
+    /** Alert modal */
+    const setStatePromise = (message) => {
+        return new Promise(resolve => {
+            resolve(
+                setMessage(message)
+            )
+        });
+    }
+    /**Message modal popup*/
+    const openMessageModal = () => {
+        setShow(true);
+    }
+    /**Message modal close*/
+    const closeMessageModal = () => {
+        setShow(false);
+        resetMessage();
+        handleClose();
+        window.location.reload(false);
+    }
+    /**Reset message */
+    const resetMessage = () => {
+        setMessage('');
+        setStatusCode(0);
+    }
+    /**-------------*/
+
 
     const config = {
         header:{
@@ -61,22 +92,37 @@ const AddCenterModal = ({ handleClose, showAdd }) =>{
                 division:division
             }
             console.log(newCenter);
-            CenterService.addCenter(newCenter,config).then(response => {
-                if(response.data.success){
-                    alert("New Center created successfully !");
+            CenterService.addCenter(newCenter,config).then(result => {
+                if(result.data.success){
+                    setStatePromise(result.data.message).then(()=>{
+                        setStatusCode(result.status);
+                    }).then(()=>{
+                        openMessageModal();
+                    })
                     setCenterCode("");
                     setCenterAddress("");
                     setCenterPhone("");
                     setCenterInCharge("");
                     setDivision("");
                     setFieldError('');
-                    handleClose();
-                    window.location.reload(false);
+
                 }else{
-                    alert("New Center created unsuccessful !");
+                    setStatePromise(result.data.error.message).then(()=>{
+                        setStatusCode(result.data.error.status)
+                    }).then(()=>{
+                        openMessageModal();
+                    });
                 }
             }).catch(error => {
-                alert(`Server error !\n${error.message}`)
+                setStatePromise(error.message).then(()=>{
+                    if(!error.response){
+                        setStatusCode(500);
+                    }else{
+                        setStatusCode(error.response.status);
+                    }
+                }).then(()=>{
+                    openMessageModal();
+                })
             })
         }
     }
@@ -136,6 +182,13 @@ const AddCenterModal = ({ handleClose, showAdd }) =>{
                         <button type="button" className="btn-add btn-Style" onClick={submitHandler}>
                             Add Center
                         </button>
+                        <MessageModal
+                            show={show}
+                            message={message}
+                            closeHandler={closeMessageModal}
+                            messageReset={resetMessage}
+                            responseCode={statusCode}
+                        />
                     </div>
                 </div>
             </section>

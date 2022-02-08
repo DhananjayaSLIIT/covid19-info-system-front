@@ -65,7 +65,7 @@ export default class DistrictManagement extends Component {
                                 </ul>
                                 <div className="new-App">
                                     <button className="btn-add" onClick={this.showModal}>Add District</button>
-                                    <AddDistrictModal  show={this.state.show} handleClose={this.hideModal}/>
+                                    <AddDistrictModal  showAdd={this.state.show} handleClose={this.hideModal}/>
                                 </div>
                             </div>
                         </div>

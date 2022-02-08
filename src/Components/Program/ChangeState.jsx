@@ -5,6 +5,7 @@ import { FaUserCircle } from 'react-icons/fa';
 import ProgramService from "../../Services/ProgramService";
 import Select from 'react-select';
 import update from 'react-addons-update';
+import MessageModal from "../Message/MessageModal";
 
 function getIdName(state){
     if(state === "Pending"){
@@ -22,6 +23,9 @@ export default class ChangeState extends Component {
     constructor(props) {
         super(props);
         this.state={
+            show:false,
+            message:'',
+            statusCode:'',
             keyWord:"",
             options:[
                 {
@@ -46,7 +50,8 @@ export default class ChangeState extends Component {
             stateChanged:[],
             colorState:[],
             myText:'',
-            id:''
+            id:'',
+            viewTable:'table pro-table'
         }
 
         this.setStateHandler = this.setStateHandler.bind(this);
@@ -55,8 +60,44 @@ export default class ChangeState extends Component {
         this.onSearchHandlerPromise = this.onSearchHandlerPromise.bind(this);
         this.searchAlgorithm = this.searchAlgorithm.bind(this);
         this.onSearchHandler = this.onSearchHandler.bind(this);
+        this.displayTable = this.displayTable.bind(this);
+
+        this.openMessageModal = this.openMessageModal.bind(this);
+        this.closeMessageModal = this.closeMessageModal.bind(this);
+        this.setStatePromise = this.setStatePromise.bind(this);
+        this.resetMessage = this.resetMessage.bind(this);
     }
 
+    /** Alert modal */
+    setStatePromise(message){
+        return new Promise(resolve => {
+            resolve(
+                this.setState({message:message})
+            )
+        });
+    }
+
+    displayTable(){
+        this.setState({viewTable:'_table_display_none'});
+    }
+
+    /**Message modal popup*/
+    openMessageModal(){
+        this.displayTable();
+        this.setState({show:true});
+    }
+    /**Message modal close*/
+    closeMessageModal(){
+        this.setState({show:false});
+        this.resetMessage();
+        window.location.reload(false);
+    }
+    /**Reset message */
+    resetMessage(){
+        this.setState({message:''});
+        this.setState({statusCode:''});
+    }
+    /**-------------*/
 
     componentDidMount() {
         try {
@@ -95,17 +136,39 @@ export default class ChangeState extends Component {
         if(this.state.stateChanged.length > 0){
             try {
                 console.log(list);
-                ProgramService.saveStatus(list).then(response =>{
-                    if(response.data.success === true){
-                        alert(response.data.message);
-                        window.location.reload(false);
+                ProgramService.saveStatus(list).then(result =>{
+                    if(result.data.success){
+                        this.setStatePromise(result.data.message).then(()=>{
+                            this.setState({statusCode:result.status})
+                        }).then(()=>{
+                            this.openMessageModal();
+                        })
+                    }else{
+                        this.setStatePromise(result.data.error.message).then(()=>{
+                            this.setState({statusCode:result.data.error.status})
+                        }).then(()=>{
+                            this.openMessageModal();
+                        })
+                        //alert(result.data.error.message);
                     }
                 })
             }catch (error){
-                console.log(error.error.message)
+                this.setStatePromise(error.message).then(()=>{
+                    if(!error.response){
+                        this.setState({statusCode:500})
+                    }else{
+                        this.setState({statusCode:error.response.status})
+                    }
+                }).then(()=>{
+                    this.openMessageModal();
+                })
             }
         }else{
-            alert("Status not changed !");
+            this.setStatePromise("Status not changed !").then(()=>{
+                this.setState({statusCode:400})
+            }).then(()=>{
+                this.openMessageModal();
+            })
         }
     }
 
@@ -253,6 +316,13 @@ export default class ChangeState extends Component {
                             </div>
                             <div className="pro-add-btn-div">
                                 <button  className="pro-btn-add" onClick={this.saveChanges}> SAVE CHANGES</button>
+                                <MessageModal
+                                    show={this.state.show}
+                                    message={this.state.message}
+                                    closeHandler={this.closeMessageModal}
+                                    messageReset={this.resetMessage}
+                                    responseCode={this.state.statusCode}
+                                />
                             </div>
                         </div>
                         <div className="pro-middle-container" id="bottom-con">
@@ -262,7 +332,7 @@ export default class ChangeState extends Component {
                             <br/>
                         </div>
                         <div className="pro-bottom-container">
-                            <table className="table pro-table">
+                            <table className={this.state.viewTable}>
                                 <tbody>
                                     {this.state.searchApplications.length > 0 && this.state.searchApplications.map((item, index) =>(
                                         <div key={index} style={{paddingBottom:"20px"}}>

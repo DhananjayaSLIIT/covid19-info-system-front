@@ -2,34 +2,81 @@ import React, {Component} from 'react';
 import NormalTopStatusUser from "../TopStatusBar/NormalTopStatusBar";
 import '../../css/forgot_password_email.css';
 import UserServices from "../../Services/UserServices";
+import MessageModal from "../Message/MessageModal";
 
 export default class ForgotPasswordEmail extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            show:false,
+            message:'',
+            statusCode:'',
             userEmail:'',
             errorField:''
         }
         this.onButtonClick = this.onButtonClick.bind(this);
         this.onChangeHandler = this.onChangeHandler.bind(this);
+
+        this.openMessageModal = this.openMessageModal.bind(this);
+        this.closeMessageModal = this.closeMessageModal.bind(this);
+        this.setStatePromise = this.setStatePromise.bind(this);
+        this.resetMessage = this.resetMessage.bind(this);
     }
+
+    /** Alert modal */
+    setStatePromise(message){
+        return new Promise(resolve => {
+            resolve(
+                this.setState({message:message})
+            )
+        });
+    }
+    /**Message modal popup*/
+    openMessageModal(){
+        this.setState({show:true});
+    }
+    /**Message modal close*/
+    closeMessageModal(){
+        this.setState({show:false});
+        this.resetMessage();
+        window.location.href = "/login";
+    }
+    /**Reset message */
+    resetMessage(){
+        this.setState({message:''});
+        this.setState({statusCode:''});
+    }
+    /**-------------*/
 
     onButtonClick(){
         let data = {
             email:this.state.userEmail
         }
 
-        UserServices.sendForgotPasswordEmail(data).then(response =>{
-            if(response.status === 200){
-                alert("Request sent to the email.\nPlease check you emails !");
-                window.location.href = "/login";
+        UserServices.sendForgotPasswordEmail(data).then(result =>{
+            if(result.status === 200){
+                this.setStatePromise(result.data.message).then(()=>{
+                    this.setState({statusCode:result.status})
+                }).then(()=>{
+                    this.openMessageModal();
+                })
+            }else{
+                this.setStatePromise(result.data.error.message).then(()=>{
+                    this.setState({statusCode:result.data.error.status})
+                }).then(()=>{
+                    this.openMessageModal();
+                })
             }
-        }).catch(err=>{
-            if(err.response.status === 401){
-                alert(err.response.data.message);
-            }else {
-                alert("Something went wrong");
-            }
+        }).catch(error=>{
+            this.setStatePromise(error.message).then(()=>{
+                if(!error.response){
+                    this.setState({statusCode:500})
+                }else{
+                    this.setState({statusCode:error.response.status})
+                }
+            }).then(()=>{
+                this.openMessageModal();
+            })
         });
     }
 
@@ -54,6 +101,13 @@ export default class ForgotPasswordEmail extends Component {
                             <div className="mb-3">
                                 <button type="button" className="btn-add" onClick={this.onButtonClick}>Send request</button>
                             </div>
+                            <MessageModal
+                                show={this.state.show}
+                                message={this.state.message}
+                                closeHandler={this.closeMessageModal}
+                                messageReset={this.resetMessage}
+                                responseCode={this.state.statusCode}
+                            />
                         </div>
                         <div className="_forget_email_grid-item ">
                             <img src="/images/emailType.jpg" id='_forget_email_img'/>

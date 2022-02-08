@@ -2,10 +2,15 @@ import React, {useEffect, useState} from 'react';
 import '../../css/divisionCss/add-division.css';
 import Service from "../../Services/Service";
 import Select from 'react-select';
+import MessageModal from "../Message/MessageModal";
 
 
 const AddDivision = ({ handleClose, showAdd }) =>{
     const showHideClassName = showAdd ? "modal display-block" : "modal display-none";
+
+    const [show, setShow] = useState(false);
+    const [message, setMessage] = useState('');
+    const [statusCode, setStatusCode] = useState(0);
 
     const [districts , setDistricts] = useState([]);
     const [divisionNumber, setDivisionNumber] = useState("");
@@ -33,6 +38,32 @@ const AddDivision = ({ handleClose, showAdd }) =>{
         })
     },[showAdd]);
 
+    /** Alert modal */
+    const setStatePromise = (message) => {
+        return new Promise(resolve => {
+            resolve(
+                setMessage(message)
+            )
+        });
+    }
+    /**Message modal popup*/
+    const openMessageModal = () => {
+        setShow(true);
+    }
+    /**Message modal close*/
+    const closeMessageModal = () => {
+        setShow(false);
+        resetMessage();
+        handleClose();
+        window.location.reload(false);
+    }
+    /**Reset message */
+    const resetMessage = () => {
+        setMessage('');
+        setStatusCode(0);
+    }
+    /**-------------*/
+
     const submitHandler = function (event) {
         event.preventDefault();
 
@@ -59,13 +90,30 @@ const AddDivision = ({ handleClose, showAdd }) =>{
                 officePhone:officePhone,
                 district:district
             }
-            Service.addDivision(newDivision,config).then(response => {
-                alert(response.data.message);
-                handleClose();
-                window.location.reload(false);
+            Service.addDivision(newDivision,config).then(result => {
+                if(result.data.success){
+                    setStatePromise(result.data.message).then(()=>{
+                        setStatusCode(result.status);
+                    }).then(()=>{
+                        openMessageModal();
+                    })
+                }else{
+                    setStatePromise(result.data.error.message).then(()=>{
+                        setStatusCode(result.data.error.status)
+                    }).then(()=>{
+                        openMessageModal();
+                    })
+                }
             }).catch(error =>{
-                alert(error.message);
-                console.log(error)
+                setStatePromise(error.message).then(()=>{
+                    if(!error.response){
+                        setStatusCode(500);
+                    }else{
+                        setStatusCode(error.response.status);
+                    }
+                }).then(()=>{
+                    openMessageModal();
+                })
             })
         }
     }
@@ -128,6 +176,13 @@ const AddDivision = ({ handleClose, showAdd }) =>{
                         <button type="button" className="btn-add btn-Style" onClick={submitHandler}>
                             Add Division
                         </button>
+                        <MessageModal
+                            show={show}
+                            message={message}
+                            closeHandler={closeMessageModal}
+                            messageReset={resetMessage}
+                            responseCode={statusCode}
+                        />
                     </div>
                 </div>
             </section>

@@ -2,11 +2,15 @@ import React, {Component} from 'react';
 import {RiHeartPulseLine} from 'react-icons/ri';
 import {GiSyringe} from 'react-icons/gi';
 import Service from "../../Services/Service";
+import MessageModal from "../Message/MessageModal";
 
 export default class AddDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            show:false,
+            message:'',
+            statusCode:'',
             lastUpdate: "",
             infoDate: ``,
             deathCases: "",
@@ -18,7 +22,40 @@ export default class AddDetail extends Component {
         this.onSubmitHandler = this.onSubmitHandler.bind(this);
         this.setTime = this.setTime.bind(this);
         this.getDetails = this.getDetails.bind(this);
+
+        this.openMessageModal = this.openMessageModal.bind(this);
+        this.closeMessageModal = this.closeMessageModal.bind(this);
+        this.setStatePromise = this.setStatePromise.bind(this);
+        this.resetMessage = this.resetMessage.bind(this);
     }
+
+    /** Alert modal */
+    setStatePromise(message){
+        return new Promise(resolve => {
+            resolve(
+                this.setState({message:message})
+            )
+        });
+    }
+    /**Message modal popup*/
+    openMessageModal(){
+        this.setState({show:true});
+    }
+    /**Message modal close*/
+    closeMessageModal(){
+        this.setState({show:false});
+        this.resetMessage();
+        this.setState({deathCases:""});
+        this.setState({vaccinatedCount:""});
+        this.getDetails();
+        window.location.reload(false);
+    }
+    /**Reset message */
+    resetMessage(){
+        this.setState({message:''});
+        this.setState({statusCode:''});
+    }
+    /**-------------*/
 
     componentDidMount() {
         this.getDetails();
@@ -62,15 +99,34 @@ export default class AddDetail extends Component {
         if(!this.state.deathCases || !this.state.vaccinatedCount){
             return this.setState({fieldError:"Empty fields !"})
         }else{
-            Service.addInfo(newInfo,config).then(response => {
-                alert(response.data.message);
-                this.setState({deathCases:""});
-                this.setState({vaccinatedCount:""});
-                this.getDetails();
-                this.props.isRefreshed(true);
-                window.location.reload(false);
+            Service.addInfo(newInfo,config).then(result => {
+                if(result.data.success){
+                    this.setStatePromise(result.data.message).then(()=>{
+                        this.setState({statusCode:result.status})
+                    }).then(()=>{
+                        this.openMessageModal();
+                    })
+                }else{
+                    this.setStatePromise(result.data.error.message).then(()=>{
+                        this.setState({statusCode:result.data.error.status})
+                    }).then(()=>{
+                        this.openMessageModal();
+                    })
+                    alert(result.data.error.message);
+                }
+
+                // this.props.isRefreshed(true);
+                // window.location.reload(false);
             }).catch(error => {
-                alert(`Something went wrong ! \n${error.message}`)
+                this.setStatePromise(error.message).then(()=>{
+                    if(!error.response){
+                        this.setState({statusCode:500})
+                    }else{
+                        this.setState({statusCode:error.response.status})
+                    }
+                }).then(()=>{
+                    this.openMessageModal();
+                })
             })
         }
     }
@@ -103,6 +159,13 @@ export default class AddDetail extends Component {
                     </div>
                     <p style={{height:"20px",fontWeight:"bold",color:"red"}}>{this.state.fieldError}</p>
                     <button className="info-btn-add" onClick={this.onSubmitHandler}>Update Daily Details</button>
+                    <MessageModal
+                        show={this.state.show}
+                        message={this.state.message}
+                        closeHandler={this.closeMessageModal}
+                        messageReset={this.resetMessage}
+                        responseCode={this.state.statusCode}
+                    />
                 </div>
             </div>
         );
